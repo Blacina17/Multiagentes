@@ -1,6 +1,4 @@
 import mesa
-
-
 class Vehiculo(mesa.Agent):
 	def __init__(self, model, codigo, origen, destino):
 		super().__init__(model)
