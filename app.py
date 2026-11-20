@@ -10,8 +10,9 @@ from modelo import Ciudad
 from visualizacion import dibujarEstado, tablaResultados
 
 
-# Muestra el mapa y la tabla de resultados del mismo modelo que controla Mesa.
-# Parámetro: modelo, Ciudad. Retorno: componente de Solara.
+# Mustramos el mapa y la tabla de resultados del mismo modelo que controla Mesa.
+# Parámetro: modelo, Ciudad. 
+# Retorno: componente de Solara.
 @solara.component
 def VistaCiudad(modelo):
 	update_counter.get()

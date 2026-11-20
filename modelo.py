@@ -7,7 +7,7 @@ from agentes.coordinador import Coordinador
 
 
 class Ciudad(mesa.Model):
-	# Prepara la simulación. Los argumentos se reciben por nombre para SolaraViz.
+	# Preparamos la simulación.
 	# Parámetros:
 	#   numeroVehiculos: cuántos autos (1 a 17, cada uno sale de un estacionamiento distinto).
 	#   duracionVerde: pasos que dura cada fase de los semáforos.
@@ -58,8 +58,9 @@ class Ciudad(mesa.Model):
 	def haTerminado(self):
 		return all(v.estado == "FINALIZADO" for v in self.vehiculos)
 
-	# Un paso: cambian las luces y el coordinador decide los movimientos.
-	# Parámetros: ninguno. Retorno: ninguno.
+	# Damos un paso: cambiamos las luces y el coordinador decide los movimientos.
+	# Parámetros: ninguno. 
+	# Retorno: ninguno.
 	def step(self):
 		if self.motivoFin != "EN_CURSO":
 			return
