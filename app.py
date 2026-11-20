@@ -1,4 +1,7 @@
 """Visualizador de Mesa. Ejecutar desde esta carpeta: solara run app.py"""
+import mimetypes
+mimetypes.add_type("application/javascript", ".js")
+mimetypes.add_type("application/javascript", ".mjs")
 import matplotlib.pyplot as plt
 import solara
 from mesa.visualization import SolaraViz
