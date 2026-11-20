@@ -7,14 +7,6 @@ from agentes.coordinador import Coordinador
 
 
 class Ciudad(mesa.Model):
-	# Preparamos la simulación.
-	# Parámetros:
-	#   numeroVehiculos: cuántos autos (1 a 17, cada uno sale de un estacionamiento distinto).
-	#   duracionVerde: pasos que dura cada fase de los semáforos.
-	#   limite: máximo de pasos por si algún auto no llega.
-	#   semilla: número para repetir el mismo sorteo de origenes y destinos.
-	#   viajes: opcional, lista de tuplas (origen, destino); si se da, ignora numeroVehiculos.
-	# Retorno: ninguno.
 	def __init__(self, *, numeroVehiculos=5, duracionVerde=4, limite=800, semilla=7, viajes=None):
 		super().__init__(rng=semilla)
 		for valor in (duracionVerde, limite):
@@ -32,8 +24,6 @@ class Ciudad(mesa.Model):
 		self.vehiculos = [Vehiculo(self, i + 1, o, d) for i, (o, d) in enumerate(viajes)]
 		self.control = Coordinador(self)
 
-	# Elige orígenes distintos y un destino diferente al origen para cada auto.
-	# Parámetros: cantidad y semilla. Retorno: lista de tuplas (origen, destino).
 	def sortearViajes(self, cantidad, semilla):
 		if type(cantidad) is not int or not 1 <= cantidad <= len(self.mapa.estacionamientos):
 			raise ValueError("Usa entre 1 y 17 vehículos.")
@@ -41,7 +31,6 @@ class Ciudad(mesa.Model):
 		origenes = self.random.sample(numeros, cantidad)
 		return [(o, self.random.choice([p for p in numeros if p != o])) for o in origenes]
 
-	# Comprueba que los viajes sean válidos. Parámetro: viajes. Retorno: ninguno.
 	def validarViajes(self, viajes):
 		if not viajes:
 			raise ValueError("Debe haber al menos un viaje.")
@@ -54,13 +43,9 @@ class Ciudad(mesa.Model):
 			if o == d:
 				raise ValueError("El origen y el destino deben ser distintos.")
 
-	# Indica si todos los autos llegaron. Parámetros: ninguno. Retorno: booleano.
 	def haTerminado(self):
 		return all(v.estado == "FINALIZADO" for v in self.vehiculos)
 
-	# Damos un paso: cambiamos las luces y el coordinador decide los movimientos.
-	# Parámetros: ninguno. 
-	# Retorno: ninguno.
 	def step(self):
 		if self.motivoFin != "EN_CURSO":
 			return
